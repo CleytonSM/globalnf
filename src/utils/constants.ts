@@ -7,7 +7,7 @@ export const NAV_LINKS = [
   { label: 'About', to: '/about' },
   { label: 'Programs', to: '/programs' },
   { label: 'Community', to: '/community' },
-  { label: 'Donate', to: '/donate' },
+  //{ label: 'Donate', to: '/donate' },
 ] as const
 
 export const SOCIAL_LINKS = [

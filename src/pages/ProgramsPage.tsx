@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Users, Bot, BookOpen } from 'lucide-react'
+import heroBg from '../assets/hero_background.mp4'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import AudienceSelector from '../features/journey/AudienceSelector'
 import JourneyMap from '../features/journey/JourneyMap'
@@ -19,8 +20,18 @@ export default function ProgramsPage() {
 
 function PageHeaderSection() {
   return (
-    <section className="bg-navy py-32 px-6 text-center">
-      <div className="max-w-3xl mx-auto">
+    <section className="relative py-32 px-6 text-center overflow-hidden">
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src={heroBg}
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-navy/60" />
+      <div className="relative z-10 max-w-3xl mx-auto">
         <span className="inline-block text-xs font-semibold uppercase tracking-widest text-white/40 mb-6">
           Programs
         </span>
@@ -56,7 +67,7 @@ function AudienceSelectorSection() {
 
 function JourneyMapSection() {
   return (
-    <section className="py-16 bg-neutral">
+    <section className="py-16 bg-neutral m-5 rounded-lg">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionHeader
           eyebrow="The Validation Journey"
@@ -121,7 +132,7 @@ function EcosystemSection() {
 
 function InCountrySection() {
   return (
-    <section className="py-20 bg-green/5 border-t-4 border-green">
+    <section className="py-20 bg-green/5 border-t-4 border-green m-5 rounded-lg">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
