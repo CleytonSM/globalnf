@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
+import logo from '../../assets/Logo Only Transparent (Vertical Square).png'
 import { useScrolled } from '../../hooks/useScrolled'
 import { NAV_LINKS } from '../../utils/constants'
 import Button from '../Button/Button'
@@ -18,7 +19,7 @@ export default function Navbar() {
       {/* Pill bar */}
       <header
         className={cn(
-          'flex items-center justify-between px-4 md:px-6 h-14 md:h-16 rounded-full  transition-all duration-300',
+          'flex items-center justify-between px-4 md:px-6 h-14 md:h-16 rounded-full border transition-all duration-300',
           'backdrop-blur-md shadow-lg',
           isScrolled
             ? 'bg-white/80 border-transparent shadow-black/10'
@@ -29,10 +30,17 @@ export default function Navbar() {
         <Link
           to="/"
           onClick={handleMobileClose}
-          className="flex items-center gap-2 shrink-0"
+          className="flex items-center shrink-0"
           aria-label="GNF Home"
         >
-          <GnfLogo light={!isScrolled} />
+        <img
+          src={logo}
+          alt="Global Nursing Foundation"
+          className={cn(
+            'h-14 md:h-16 w-auto transition-all duration-300',
+            isScrolled ? '' : 'brightness-0 invert',
+          )}          
+          />
         </Link>
 
         {/* Desktop nav */}
@@ -144,28 +152,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </div>
-  )
-}
-
-function GnfLogo({ light }: { light: boolean }) {
-  return (
-    <div
-      className={cn(
-        'font-display font-extrabold text-lg tracking-tight leading-none',
-        light ? 'text-white' : 'text-navy',
-      )}
-    >
-      <span className={light ? 'text-brand-light' : 'text-brand'}>G</span>
-      NF
-      <span
-        className={cn(
-          'ml-2 text-xs font-body font-normal tracking-normal',
-          light ? 'text-white/60' : 'text-muted',
-        )}
-      >
-        Global Nursing Foundation
-      </span>
     </div>
   )
 }
