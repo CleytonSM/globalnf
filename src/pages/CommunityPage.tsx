@@ -1,3 +1,5 @@
+import { Handshake, Target, Bot, Briefcase, Camera, X, Globe, Play } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import WaitlistForm from '../features/community/WaitlistForm'
 import { SOCIAL_LINKS } from '../utils/constants'
@@ -51,12 +53,12 @@ function WaitlistSection() {
             {/* Community features */}
             <div className="mt-8 space-y-4">
               {[
-                { icon: '🤝', label: 'Peer-to-peer support', desc: 'Connect with nurses at every stage of the journey' },
-                { icon: '🎯', label: 'Structured guidance', desc: 'Clear resources organized by your step in the process' },
-                { icon: '🤖', label: 'Flo AI assistant', desc: 'Get answers 24/7 without waiting for office hours' },
-              ].map(({ icon, label, desc }) => (
+                { icon: Handshake, label: 'Peer-to-peer support', desc: 'Connect with nurses at every stage of the journey' },
+                { icon: Target, label: 'Structured guidance', desc: 'Clear resources organized by your step in the process' },
+                { icon: Bot, label: 'Flo AI assistant', desc: 'Get answers 24/7 without waiting for office hours' },
+              ].map(({ icon: Icon, label, desc }) => (
                 <div key={label} className="flex items-start gap-4">
-                  <span className="text-2xl shrink-0" aria-hidden="true">{icon}</span>
+                  <Icon className="w-6 h-6 shrink-0 text-brand mt-0.5" aria-hidden="true" />
                   <div>
                     <p className="font-semibold text-navy text-sm">{label}</p>
                     <p className="text-muted text-sm">{desc}</p>
@@ -159,12 +161,13 @@ function SocialSection() {
 }
 
 function SocialLabel({ name }: { name: string }) {
-  const labels: Record<string, string> = {
-    linkedin: '💼',
-    instagram: '📸',
-    twitter: '🐦',
-    facebook: '👥',
-    youtube: '▶️',
+  const icons: Record<string, LucideIcon> = {
+    linkedin: Briefcase,
+    instagram: Camera,
+    twitter: X,
+    facebook: Globe,
+    youtube: Play,
   }
-  return <span aria-hidden="true">{labels[name] ?? ''}</span>
+  const Icon = icons[name]
+  return Icon ? <Icon className="w-4 h-4" aria-hidden="true" /> : null
 }

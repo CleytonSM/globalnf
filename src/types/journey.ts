@@ -1,3 +1,5 @@
+import type { LucideIcon } from 'lucide-react'
+
 export type JourneyColumnColor = 'teal' | 'blue' | 'blue-gray' | 'rust' | 'purple'
 
 export interface JourneyItem {
@@ -22,5 +24,5 @@ export interface Audience {
   id: AudienceType
   label: string
   description: string
-  icon: string
+  icon: LucideIcon
 }

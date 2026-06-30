@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Globe2, Sprout } from 'lucide-react'
 import Button from '../components/Button/Button'
 import AccentCard from '../components/Card/AccentCard'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
@@ -130,9 +131,11 @@ function ProgramsOverviewSection() {
                   program.id === 'pathway-abroad' ? 'bg-brand/10' : 'bg-green/10'
                 }`}
               >
-                <span className="text-xl" aria-hidden="true">
-                  {program.id === 'pathway-abroad' ? '🌎' : '🌱'}
-                </span>
+                {program.id === 'pathway-abroad' ? (
+                  <Globe2 className="w-5 h-5 text-brand" aria-hidden="true" />
+                ) : (
+                  <Sprout className="w-5 h-5 text-green" aria-hidden="true" />
+                )}
               </div>
               <h3
                 className={`font-display font-bold text-xl mb-3 ${

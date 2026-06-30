@@ -1,3 +1,4 @@
+import { MapPin, Globe, Globe2, GraduationCap } from 'lucide-react'
 import type { JourneyColumn, Audience } from '../../types/journey'
 
 export const JOURNEY_COLUMNS: JourneyColumn[] = [
@@ -62,24 +63,24 @@ export const AUDIENCES: Audience[] = [
     id: 'us-unlicensed',
     label: 'Nurses already in the U.S.',
     description: 'You\'re here but haven\'t completed licensure yet. We help you finish what you started.',
-    icon: '🇺🇸',
+    icon: MapPin,
   },
   {
     id: 'english-abroad',
     label: 'English-speaking nurses abroad',
     description: 'You practice in an English-speaking country and are ready to pursue U.S. licensure.',
-    icon: '🌎',
+    icon: Globe2,
   },
   {
     id: 'non-english-abroad',
     label: 'Non-English-speaking nurses abroad',
     description: 'You practice internationally and need language and credential support before starting the validation process.',
-    icon: '🌍',
+    icon: Globe,
   },
   {
     id: 'nursing-students',
     label: 'Nursing students',
     description: 'You\'re still in school but planning your global career. We help you build the roadmap now.',
-    icon: '🎓',
+    icon: GraduationCap,
   },
 ]

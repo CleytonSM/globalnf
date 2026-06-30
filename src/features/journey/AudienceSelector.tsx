@@ -25,7 +25,7 @@ export default function AudienceSelector({ selected, onSelect }: AudienceSelecto
                 : 'border-transparent bg-neutral hover:border-brand/30',
             )}
           >
-            <span className="text-2xl mb-3 block" aria-hidden="true">{audience.icon}</span>
+            <audience.icon className="w-6 h-6 mb-3" aria-hidden="true" />
             <p className={cn('font-display font-bold text-sm mb-1', isActive ? 'text-brand' : 'text-navy')}>
               {audience.label}
             </p>
