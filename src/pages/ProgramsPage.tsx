@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Users, Bot, BookOpen } from 'lucide-react'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import AudienceSelector from '../features/journey/AudienceSelector'
 import JourneyMap from '../features/journey/JourneyMap'
@@ -72,21 +73,21 @@ function EcosystemSection() {
   const features = [
     {
       id: 'community',
-      icon: '👥',
+      icon: Users,
       heading: 'Peer Community',
       body: 'Target: 20,000 members. Nurses supporting nurses through the full journey — from first steps to first paycheck.',
       color: 'brand' as const,
     },
     {
       id: 'flo',
-      icon: '🤖',
+      icon: Bot,
       heading: 'AI Validation Assistant (Flo)',
       body: 'Answers process questions 24/7. Built directly into the community so help is always one message away.',
       color: 'navy' as const,
     },
     {
       id: 'medical-terminology',
-      icon: '📖',
+      icon: BookOpen,
       heading: 'Medical Terminology Course',
       body: 'Essential for non-English-speaking nurses entering U.S. clinical environments. Practical, focused, and self-paced.',
       color: 'brand' as const,
@@ -107,7 +108,7 @@ function EcosystemSection() {
               key={feature.id}
               className="bg-neutral rounded-2xl p-8"
             >
-              <span className="text-3xl mb-5 block" aria-hidden="true">{feature.icon}</span>
+              <feature.icon className="w-7 h-7 mb-5 text-brand" aria-hidden="true" />
               <h3 className="font-display font-bold text-navy text-lg mb-3">{feature.heading}</h3>
               <p className="text-dark/70 leading-relaxed text-sm">{feature.body}</p>
             </div>
