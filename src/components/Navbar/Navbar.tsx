@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { Menu, X } from 'lucide-react'
 import { useScrolled } from '../../hooks/useScrolled'
 import { NAV_LINKS } from '../../utils/constants'
 import Button from '../Button/Button'
@@ -13,102 +14,106 @@ export default function Navbar() {
   const handleMobileClose = () => setIsMobileOpen(false)
 
   return (
-    <>
+    <div className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-6xl">
+      {/* Pill bar */}
       <header
         className={cn(
-          'fixed top-0 left-0 right-0 z-40 transition-all duration-300',
+          'flex items-center justify-between px-4 md:px-6 h-14 md:h-16 rounded-full  transition-all duration-300',
+          'backdrop-blur-md shadow-lg',
           isScrolled
-            ? 'bg-white shadow-md'
-            : 'bg-transparent',
+            ? 'bg-white/80 border-transparent shadow-black/10'
+            : 'bg-navy/70 border-white/20 shadow-black/20',
         )}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0" aria-label="GNF Home">
-            <GnfLogo light={!isScrolled} />
-          </Link>
+        {/* Logo */}
+        <Link
+          to="/"
+          onClick={handleMobileClose}
+          className="flex items-center gap-2 shrink-0"
+          aria-label="GNF Home"
+        >
+          <GnfLogo light={!isScrolled} />
+        </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {NAV_LINKS.map(({ label, to }) => (
-              <NavLink
-                key={to}
-                to={to}
-                end={to === '/'}
-                className={({ isActive }) =>
-                  cn(
-                    'text-sm font-medium transition-colors duration-200',
-                    isActive
-                      ? 'text-brand'
-                      : isScrolled
-                      ? 'text-navy hover:text-brand'
-                      : 'text-white/90 hover:text-white',
-                  )
-                }
-              >
-                {label}
-              </NavLink>
-            ))}
-          </nav>
-
-          {/* Desktop actions */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={cn(
-                !isScrolled && 'text-white border-white hover:bg-white hover:text-navy',
-              )}
+        {/* Desktop nav */}
+        <nav
+          className="hidden md:flex items-center gap-1"
+          aria-label="Main navigation"
+        >
+          {NAV_LINKS.map(({ label, to }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === '/'}
+              className={({ isActive }) =>
+                cn(
+                  'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200',
+                  isActive
+                    ? isScrolled
+                      ? 'bg-brand/10 text-brand'
+                      : 'bg-white/15 text-white'
+                    : isScrolled
+                    ? 'text-navy/80 hover:text-navy hover:bg-navy/5'
+                    : 'text-white/75 hover:text-white hover:bg-white/10',
+                )
+              }
             >
-              Log In
-            </Button>
-            <Button variant="primary" size="sm">
-              Get Started
-            </Button>
-          </div>
+              {label}
+            </NavLink>
+          ))}
+        </nav>
 
-          {/* Mobile hamburger */}
-          <button
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
             className={cn(
-              'md:hidden p-2 rounded-lg transition-colors',
-              isScrolled ? 'text-navy' : 'text-white',
+              'rounded-full',
+              !isScrolled && 'text-white border-white/40 hover:bg-white/10 hover:text-white hover:border-white/60',
             )}
-            onClick={handleNavToggle}
-            aria-expanded={isMobileOpen}
-            aria-label="Toggle navigation"
           >
-            <span className="sr-only">Menu</span>
-            {isMobileOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+            Log In
+          </Button>
+          <Button variant="primary" size="sm" className="rounded-full">
+            Get Started
+          </Button>
         </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className={cn(
+            'md:hidden p-2 rounded-full transition-colors',
+            isScrolled
+              ? 'text-navy hover:bg-navy/8'
+              : 'text-white hover:bg-white/10',
+          )}
+          onClick={handleNavToggle}
+          aria-expanded={isMobileOpen}
+          aria-controls="mobile-menu"
+          aria-label={isMobileOpen ? 'Close navigation' : 'Open navigation'}
+        >
+          {isMobileOpen ? (
+            <X className="w-5 h-5" aria-hidden="true" />
+          ) : (
+            <Menu className="w-5 h-5" aria-hidden="true" />
+          )}
+        </button>
       </header>
 
-      {/* Mobile overlay */}
+      {/* Mobile dropdown */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-50 bg-navy flex flex-col md:hidden">
-          <div className="flex items-center justify-between px-6 h-16">
-            <Link to="/" onClick={handleMobileClose} aria-label="GNF Home">
-              <GnfLogo light />
-            </Link>
-            <button
-              className="text-white p-2"
-              onClick={handleMobileClose}
-              aria-label="Close navigation"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          <nav className="flex flex-col gap-2 px-6 pt-8 flex-1" aria-label="Mobile navigation">
+        <div
+          id="mobile-menu"
+          role="dialog"
+          aria-label="Mobile navigation"
+          className={cn(
+            'mt-2 rounded-3xl border px-5 py-5',
+            'bg-white/95 backdrop-blur-md border-white/60 shadow-xl shadow-black/10',
+            'animate-in fade-in slide-in-from-top-2 duration-200',
+          )}
+        >
+          <nav className="flex flex-col gap-1" aria-label="Mobile navigation links">
             {NAV_LINKS.map(({ label, to }) => (
               <NavLink
                 key={to}
@@ -117,8 +122,10 @@ export default function Navbar() {
                 onClick={handleMobileClose}
                 className={({ isActive }) =>
                   cn(
-                    'text-2xl font-display font-bold py-3 border-b border-white/10',
-                    isActive ? 'text-brand' : 'text-white',
+                    'px-4 py-3 rounded-2xl text-sm font-medium transition-colors',
+                    isActive
+                      ? 'bg-brand/10 text-brand font-semibold'
+                      : 'text-navy hover:bg-navy/5',
                   )
                 }
               >
@@ -126,26 +133,37 @@ export default function Navbar() {
               </NavLink>
             ))}
           </nav>
-          <div className="flex flex-col gap-3 px-6 py-8">
-            <Button variant="ghost" size="lg" className="w-full text-white border-white hover:bg-white hover:text-navy">
+
+          <div className="mt-4 pt-4 border-t border-gray-200/60 flex flex-col gap-2">
+            <Button variant="ghost" size="md" className="w-full rounded-2xl">
               Log In
             </Button>
-            <Button variant="primary" size="lg" className="w-full">
+            <Button variant="primary" size="md" className="w-full rounded-2xl">
               Get Started
             </Button>
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
 function GnfLogo({ light }: { light: boolean }) {
   return (
-    <div className={cn('font-display font-extrabold text-xl tracking-tight', light ? 'text-white' : 'text-navy')}>
-      <span className={light ? 'text-white' : 'text-brand'}>G</span>
+    <div
+      className={cn(
+        'font-display font-extrabold text-lg tracking-tight leading-none',
+        light ? 'text-white' : 'text-navy',
+      )}
+    >
+      <span className={light ? 'text-brand-light' : 'text-brand'}>G</span>
       NF
-      <span className={cn('ml-2 text-xs font-body font-normal tracking-normal', light ? 'text-white/70' : 'text-muted')}>
+      <span
+        className={cn(
+          'ml-2 text-xs font-body font-normal tracking-normal',
+          light ? 'text-white/60' : 'text-muted',
+        )}
+      >
         Global Nursing Foundation
       </span>
     </div>
