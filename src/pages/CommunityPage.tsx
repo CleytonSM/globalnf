@@ -1,5 +1,6 @@
-import { Handshake, Target, Bot, Briefcase, Camera, X, Globe, Play } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { Handshake, Target, Bot } from 'lucide-react'
+import heroBg from '../assets/hero_background3.mp4'
+import SocialIcon from '../components/SocialIcon/SocialIcon'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import WaitlistForm from '../features/community/WaitlistForm'
 import { SOCIAL_LINKS } from '../utils/constants'
@@ -17,8 +18,18 @@ export default function CommunityPage() {
 
 function CommunityHeroSection() {
   return (
-    <section className="bg-navy py-32 px-6 text-center">
-      <div className="max-w-3xl mx-auto">
+    <section className="relative py-32 px-6 text-center overflow-hidden">
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src={heroBg}
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-navy/60" />
+      <div className="relative z-10 max-w-3xl mx-auto">
         <span className="inline-block text-xs font-semibold uppercase tracking-widest text-white/40 mb-6">
           Community
         </span>
@@ -80,7 +91,7 @@ function WaitlistSection() {
 
 function FloSection() {
   return (
-    <section className="py-20 bg-neutral">
+    <section className="py-20 bg-neutral m-4 rounded-lg">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Visual */}
@@ -150,7 +161,7 @@ function SocialSection() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-gray-200 text-navy hover:border-brand hover:text-brand transition-colors text-sm font-medium"
             >
-              <SocialLabel name={icon} />
+              <SocialIcon name={icon} />
               {label}
             </a>
           ))}
@@ -160,14 +171,3 @@ function SocialSection() {
   )
 }
 
-function SocialLabel({ name }: { name: string }) {
-  const icons: Record<string, LucideIcon> = {
-    linkedin: Briefcase,
-    instagram: Camera,
-    twitter: X,
-    facebook: Globe,
-    youtube: Play,
-  }
-  const Icon = icons[name]
-  return Icon ? <Icon className="w-4 h-4" aria-hidden="true" /> : null
-}

@@ -2,7 +2,7 @@ import { STATS } from './statsData'
 
 export default function StatsBanner() {
   return (
-    <section className="bg-navy py-20">
+    <section className="bg-navy py-20 m-5 rounded-lg">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <p className="text-white/50 text-center text-sm font-semibold uppercase tracking-widest mb-12">
           The scale of the crisis
