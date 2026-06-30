@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { NAV_LINKS, SOCIAL_LINKS } from '../../utils/constants'
 import SocialIcon from '../SocialIcon/SocialIcon'
+import logo from '../../assets/Logo and Name (Horizontal Transparent).png'
 
 export default function Footer() {
   return (
@@ -9,9 +10,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Column 1: Logo + tagline */}
           <div>
-            <div className="font-display font-extrabold text-xl tracking-tight mb-3">
-              <span className="text-brand">G</span>NF
-            </div>
+            <img
+              src={logo}
+              alt="Global Nursing Foundation"
+              className="h-14 w-auto mb-4 brightness-0 invert"
+            />
             <p className="text-white/60 text-sm font-medium mb-2 italic">
               Empowering nurses, home and abroad.
             </p>

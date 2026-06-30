@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import HomePage from './pages/HomePage'
 import ProgramsPage from './pages/ProgramsPage'
 import AboutPage from './pages/AboutPage'
@@ -10,6 +11,7 @@ import DonatePage from './pages/DonatePage'
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
       <main>
         <Routes>
