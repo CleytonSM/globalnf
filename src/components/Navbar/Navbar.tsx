@@ -3,13 +3,16 @@ import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import logo from '../../assets/Logo Only Transparent (Vertical Square).png'
 import { useScrolled } from '../../hooks/useScrolled'
+import { useTranslation } from '../../hooks/useTranslation'
 import { NAV_LINKS } from '../../utils/constants'
 import Button from '../Button/Button'
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher'
 import { cn } from '../../utils/cn'
 
 export default function Navbar() {
   const isScrolled = useScrolled()
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const { t } = useTranslation()
 
   const handleNavToggle = () => setIsMobileOpen((prev) => !prev)
   const handleMobileClose = () => setIsMobileOpen(false)
@@ -31,7 +34,7 @@ export default function Navbar() {
           to="/"
           onClick={handleMobileClose}
           className="flex items-center shrink-0"
-          aria-label="GNF Home"
+          aria-label={t('nav.homeAria')}
         >
         <img
           src={logo}
@@ -46,9 +49,9 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav
           className="hidden md:flex items-center gap-1"
-          aria-label="Main navigation"
+          aria-label={t('nav.main')}
         >
-          {NAV_LINKS.map(({ label, to }) => (
+          {NAV_LINKS.map(({ labelKey, to }) => (
             <NavLink
               key={to}
               to={to}
@@ -66,13 +69,14 @@ export default function Navbar() {
                 )
               }
             >
-              {label}
+              {t(labelKey)}
             </NavLink>
           ))}
         </nav>
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-2">
+          <LanguageSwitcher variant="desktop" isScrolled={isScrolled} />
           <Button
             variant="ghost"
             size="sm"
@@ -81,10 +85,10 @@ export default function Navbar() {
               !isScrolled && 'text-white border-white/40 hover:bg-white/10 hover:text-white hover:border-white/60',
             )}
           >
-            Log In
+            {t('common.login')}
           </Button>
           <Button variant="primary" size="sm" className="rounded-full">
-            Get Started
+            {t('common.getStarted')}
           </Button>
         </div>
 
@@ -99,7 +103,7 @@ export default function Navbar() {
           onClick={handleNavToggle}
           aria-expanded={isMobileOpen}
           aria-controls="mobile-menu"
-          aria-label={isMobileOpen ? 'Close navigation' : 'Open navigation'}
+          aria-label={isMobileOpen ? t('nav.closeMenu') : t('nav.openMenu')}
         >
           {isMobileOpen ? (
             <X className="w-5 h-5" aria-hidden="true" />
@@ -114,15 +118,15 @@ export default function Navbar() {
         <div
           id="mobile-menu"
           role="dialog"
-          aria-label="Mobile navigation"
+          aria-label={t('nav.mobile')}
           className={cn(
             'mt-2 rounded-3xl border px-5 py-5',
             'bg-white/95 backdrop-blur-md border-white/60 shadow-xl shadow-black/10',
             'animate-in fade-in slide-in-from-top-2 duration-200',
           )}
         >
-          <nav className="flex flex-col gap-1" aria-label="Mobile navigation links">
-            {NAV_LINKS.map(({ label, to }) => (
+          <nav className="flex flex-col gap-1" aria-label={t('nav.mobileLinks')}>
+            {NAV_LINKS.map(({ labelKey, to }) => (
               <NavLink
                 key={to}
                 to={to}
@@ -137,19 +141,21 @@ export default function Navbar() {
                   )
                 }
               >
-                {label}
+                {t(labelKey)}
               </NavLink>
             ))}
           </nav>
 
           <div className="mt-4 pt-4 border-t border-gray-200/60 flex flex-col gap-2">
             <Button variant="ghost" size="md" className="w-full rounded-2xl">
-              Log In
+              {t('common.login')}
             </Button>
             <Button variant="primary" size="md" className="w-full rounded-2xl">
-              Get Started
+              {t('common.getStarted')}
             </Button>
           </div>
+
+          <LanguageSwitcher variant="mobile" isScrolled={isScrolled} />
         </div>
       )}
     </div>

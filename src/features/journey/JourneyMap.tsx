@@ -2,6 +2,12 @@ import { useState } from 'react'
 import { JOURNEY_COLUMNS } from './journeyData'
 import type { JourneyColumnColor } from '../../types/journey'
 import { cn } from '../../utils/cn'
+import { useTranslation } from '../../hooks/useTranslation'
+import {
+  journeyColumnLabelKey,
+  journeyItemNoteKey,
+  journeyItemTextKey,
+} from '../../i18n/programsKeys'
 
 const colorConfig: Record<JourneyColumnColor, { chip: string; dot: string; border: string }> = {
   teal: {
@@ -33,32 +39,42 @@ const colorConfig: Record<JourneyColumnColor, { chip: string; dot: string; borde
 
 export default function JourneyMap() {
   const [openColumn, setOpenColumn] = useState<string | null>('learning')
+  const { t } = useTranslation()
 
   const handleToggle = (id: string) => {
     setOpenColumn((prev) => (prev === id ? null : id))
   }
 
+  const renderItem = (columnId: string, itemId: string, hasNote: boolean) => (
+    <span className="text-sm text-dark/80 leading-snug">
+      {t(journeyItemTextKey(columnId, itemId))}
+      {hasNote && (
+        <span className="block text-xs text-muted mt-0.5">
+          ({t(journeyItemNoteKey(columnId, itemId))})
+        </span>
+      )}
+    </span>
+  )
+
   return (
     <>
-      {/* Desktop: horizontal grid */}
-      <div className="hidden lg:grid grid-cols-5 gap-4" role="region" aria-label="Validation journey map">
+      <div
+        className="hidden lg:grid grid-cols-5 gap-4"
+        role="region"
+        aria-label={t('programs.journey.mapAria')}
+      >
         {JOURNEY_COLUMNS.map((col) => {
           const colors = colorConfig[col.color]
           return (
             <div key={col.id} className={cn('rounded-xl border bg-white p-5', colors.border)}>
               <span className={cn('inline-block text-xs font-semibold px-3 py-1 rounded-full mb-5', colors.chip)}>
-                {col.label}
+                {t(journeyColumnLabelKey(col.id))}
               </span>
               <ul className="space-y-3">
                 {col.items.map((item) => (
-                  <li key={item.text} className="flex items-start gap-2.5">
+                  <li key={item.id} className="flex items-start gap-2.5">
                     <span className={cn('w-2 h-2 rounded-full mt-1.5 shrink-0', colors.dot)} aria-hidden="true" />
-                    <span className="text-sm text-dark/80 leading-snug">
-                      {item.text}
-                      {item.note && (
-                        <span className="block text-xs text-muted mt-0.5">({item.note})</span>
-                      )}
-                    </span>
+                    {renderItem(col.id, item.id, item.note !== undefined)}
                   </li>
                 ))}
               </ul>
@@ -67,8 +83,7 @@ export default function JourneyMap() {
         })}
       </div>
 
-      {/* Mobile: accordion */}
-      <div className="lg:hidden space-y-3" role="region" aria-label="Validation journey map">
+      <div className="lg:hidden space-y-3" role="region" aria-label={t('programs.journey.mapAria')}>
         {JOURNEY_COLUMNS.map((col) => {
           const colors = colorConfig[col.color]
           const isOpen = openColumn === col.id
@@ -80,7 +95,7 @@ export default function JourneyMap() {
                 aria-expanded={isOpen}
               >
                 <span className={cn('text-xs font-semibold px-3 py-1 rounded-full', colors.chip)}>
-                  {col.label}
+                  {t(journeyColumnLabelKey(col.id))}
                 </span>
                 <svg
                   className={cn('w-5 h-5 text-muted transition-transform duration-200', isOpen && 'rotate-180')}
@@ -96,14 +111,9 @@ export default function JourneyMap() {
                 <div className="px-5 pb-5 bg-white border-t border-gray-100">
                   <ul className="space-y-3 pt-4">
                     {col.items.map((item) => (
-                      <li key={item.text} className="flex items-start gap-2.5">
+                      <li key={item.id} className="flex items-start gap-2.5">
                         <span className={cn('w-2 h-2 rounded-full mt-1.5 shrink-0', colors.dot)} aria-hidden="true" />
-                        <span className="text-sm text-dark/80 leading-snug">
-                          {item.text}
-                          {item.note && (
-                            <span className="block text-xs text-muted mt-0.5">({item.note})</span>
-                          )}
-                        </span>
+                        {renderItem(col.id, item.id, item.note !== undefined)}
                       </li>
                     ))}
                   </ul>

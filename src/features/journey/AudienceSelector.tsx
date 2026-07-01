@@ -1,5 +1,7 @@
 import { cn } from '../../utils/cn'
 import { AUDIENCES } from './journeyData'
+import { useTranslation } from '../../hooks/useTranslation'
+import { audienceDescriptionKey, audienceLabelKey } from '../../i18n/programsKeys'
 import type { AudienceType } from '../../types/journey'
 
 type AudienceSelectorProps = {
@@ -8,8 +10,14 @@ type AudienceSelectorProps = {
 }
 
 export default function AudienceSelector({ selected, onSelect }: AudienceSelectorProps) {
+  const { t } = useTranslation()
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4" role="tablist" aria-label="Select your audience type">
+    <div
+      className="grid grid-cols-2 md:grid-cols-4 gap-4"
+      role="tablist"
+      aria-label={t('programs.audience.selectorAria')}
+    >
       {AUDIENCES.map((audience) => {
         const isActive = audience.id === selected
         return (
@@ -27,9 +35,9 @@ export default function AudienceSelector({ selected, onSelect }: AudienceSelecto
           >
             <audience.icon className="w-6 h-6 mb-3" aria-hidden="true" />
             <p className={cn('font-display font-bold text-sm mb-1', isActive ? 'text-brand' : 'text-navy')}>
-              {audience.label}
+              {t(audienceLabelKey(audience.id))}
             </p>
-            <p className="text-muted text-xs leading-relaxed">{audience.description}</p>
+            <p className="text-muted text-xs leading-relaxed">{t(audienceDescriptionKey(audience.id))}</p>
           </button>
         )
       })}

@@ -22,7 +22,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     credentials: 'PhD, MSN, RN',
     title: 'Founding Director of Education',
     photo: marcelaPadilhaPhoto,
-    linkedIn: 'https://linkedin.com/in/marcela-padilha',
+    linkedIn: 'https://www.linkedin.com/in/dra-marcela-padilha-facetto-azevedo-640b71167/',
     bio: 'Marcela Padilha brings deep academic and clinical expertise to GNF\'s educational programming. With a PhD and MSN in nursing, she leads the design and quality of GNF\'s curriculum, ensuring every learning experience is grounded in evidence, practical, and genuinely useful for nurses navigating the validation journey.',
   },
   {
@@ -58,7 +58,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     credentials: 'MSc',
     title: 'Founding Director of International Mobility',
     photo: amarildoDamataPhoto,
-    linkedIn: 'https://www.linkedin.com/in/amarildo-damata-04837810/',
+    linkedIn: 'https://www.linkedin.com/in/amarildo-damata-9943546/',
     bio: 'Amarildo Damata leads GNF\'s international mobility programs, including the visa pathway guidance and employer sponsorship support for internationally educated nurses. His MSc background and deep knowledge of immigration pathways — including EB-3 Schedule A and TN visas — make him the anchor for nurses navigating the post-board journey into U.S. employment.',
   },
 ]

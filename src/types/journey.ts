@@ -3,6 +3,7 @@ import type { LucideIcon } from 'lucide-react'
 export type JourneyColumnColor = 'teal' | 'blue' | 'blue-gray' | 'rust' | 'purple'
 
 export interface JourneyItem {
+  id: string
   text: string
   note?: string
 }

@@ -1,24 +1,44 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import Button from '../../components/Button/Button'
+import { useTranslation } from '../../hooks/useTranslation'
+import { waitlistStatusKey } from '../../i18n/programsKeys'
 import { cn } from '../../utils/cn'
 
-const waitlistSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Enter a valid email address'),
-  country: z.string().min(1, 'Country is required'),
-  nurseStatus: z.enum(['us-unlicensed', 'english-abroad', 'non-english-abroad', 'nursing-student'], {
-    error: 'Select your current status',
-  }),
-})
+type WaitlistFormData = {
+  firstName: string
+  lastName: string
+  email: string
+  country: string
+  nurseStatus: 'us-unlicensed' | 'english-abroad' | 'non-english-abroad' | 'nursing-student'
+}
 
-type WaitlistFormData = z.infer<typeof waitlistSchema>
+const STATUS_OPTIONS = [
+  'us-unlicensed',
+  'english-abroad',
+  'non-english-abroad',
+  'nursing-student',
+] as const
 
 export default function WaitlistForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const { t } = useTranslation()
+
+  const waitlistSchema = useMemo(
+    () =>
+      z.object({
+        firstName: z.string().min(1, t('community.waitlist.form.errors.firstName')),
+        lastName: z.string().min(1, t('community.waitlist.form.errors.lastName')),
+        email: z.string().email(t('community.waitlist.form.errors.email')),
+        country: z.string().min(1, t('community.waitlist.form.errors.country')),
+        nurseStatus: z.enum(STATUS_OPTIONS, {
+          error: t('community.waitlist.form.errors.nurseStatus'),
+        }),
+      }),
+    [t],
+  )
 
   const {
     register,
@@ -29,7 +49,6 @@ export default function WaitlistForm() {
   })
 
   const handleFormSubmit = async (_data: WaitlistFormData) => {
-    // Service layer integration point — currently a stub
     await new Promise<void>((resolve) => setTimeout(resolve, 800))
     setIsSubmitted(true)
   }
@@ -42,8 +61,10 @@ export default function WaitlistForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-display font-bold text-navy text-xl mb-2">You're on the list!</h3>
-        <p className="text-muted">We'll reach out as soon as the community opens. Welcome to GNF.</p>
+        <h3 className="font-display font-bold text-navy text-xl mb-2">
+          {t('community.waitlist.form.successTitle')}
+        </h3>
+        <p className="text-muted">{t('community.waitlist.form.successMessage')}</p>
       </div>
     )
   }
@@ -53,10 +74,14 @@ export default function WaitlistForm() {
       onSubmit={handleSubmit(handleFormSubmit)}
       className="space-y-5"
       noValidate
-      aria-label="Community waitlist sign-up"
+      aria-label={t('community.waitlist.form.aria')}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <FieldWrapper label="First name" error={errors.firstName?.message} htmlFor="firstName">
+        <FieldWrapper
+          label={t('community.waitlist.form.firstName')}
+          error={errors.firstName?.message}
+          htmlFor="firstName"
+        >
           <input
             id="firstName"
             type="text"
@@ -66,7 +91,11 @@ export default function WaitlistForm() {
             {...register('firstName')}
           />
         </FieldWrapper>
-        <FieldWrapper label="Last name" error={errors.lastName?.message} htmlFor="lastName">
+        <FieldWrapper
+          label={t('community.waitlist.form.lastName')}
+          error={errors.lastName?.message}
+          htmlFor="lastName"
+        >
           <input
             id="lastName"
             type="text"
@@ -78,7 +107,7 @@ export default function WaitlistForm() {
         </FieldWrapper>
       </div>
 
-      <FieldWrapper label="Email address" error={errors.email?.message} htmlFor="email">
+      <FieldWrapper label={t('community.waitlist.form.email')} error={errors.email?.message} htmlFor="email">
         <input
           id="email"
           type="email"
@@ -89,7 +118,7 @@ export default function WaitlistForm() {
         />
       </FieldWrapper>
 
-      <FieldWrapper label="Country of residence" error={errors.country?.message} htmlFor="country">
+      <FieldWrapper label={t('community.waitlist.form.country')} error={errors.country?.message} htmlFor="country">
         <input
           id="country"
           type="text"
@@ -100,34 +129,29 @@ export default function WaitlistForm() {
         />
       </FieldWrapper>
 
-      <FieldWrapper label="Your current status" error={errors.nurseStatus?.message} htmlFor="nurseStatus">
+      <FieldWrapper label={t('community.waitlist.form.status')} error={errors.nurseStatus?.message} htmlFor="nurseStatus">
         <select
           id="nurseStatus"
           className={inputClass(!!errors.nurseStatus)}
           defaultValue=""
           {...register('nurseStatus')}
         >
-          <option value="" disabled>Select your status…</option>
-          <option value="us-unlicensed">Nurse in the U.S. (unlicensed)</option>
-          <option value="english-abroad">English-speaking nurse practicing abroad</option>
-          <option value="non-english-abroad">Non-English-speaking nurse practicing abroad</option>
-          <option value="nursing-student">Nursing student</option>
+          <option value="" disabled>
+            {t('community.waitlist.form.statusPlaceholder')}
+          </option>
+          {STATUS_OPTIONS.map((value) => (
+            <option key={value} value={value}>
+              {t(waitlistStatusKey(value))}
+            </option>
+          ))}
         </select>
       </FieldWrapper>
 
-      <Button
-        type="submit"
-        variant="primary"
-        size="lg"
-        className="w-full"
-        isLoading={isSubmitting}
-      >
-        Join the Waitlist
+      <Button type="submit" variant="primary" size="lg" className="w-full" isLoading={isSubmitting}>
+        {t('community.waitlist.form.submit')}
       </Button>
 
-      <p className="text-xs text-muted text-center">
-        No spam. We'll only reach out about community access and GNF updates.
-      </p>
+      <p className="text-xs text-muted text-center">{t('community.waitlist.form.disclaimer')}</p>
     </form>
   )
 }

@@ -3,15 +3,14 @@ export const NAVY_COLOR = '#0A2D51'
 export const GREEN_COLOR = '#006826'
 
 export const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Programs', to: '/programs' },
-  { label: 'Community', to: '/community' },
-  //{ label: 'Donate', to: '/donate' },
+  { to: '/', labelKey: 'nav.home' },
+  { to: '/about', labelKey: 'nav.about' },
+  { to: '/programs', labelKey: 'nav.programs' },
+  { to: '/community', labelKey: 'nav.community' },
 ] as const
 
 export const SOCIAL_LINKS = [
-  { label: 'LinkedIn', href: 'https://linkedin.com/company/globalnf', icon: 'linkedin' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/global-nursing-foundation/', icon: 'linkedin' },
   { label: 'Instagram', href: 'https://instagram.com/globalnf', icon: 'instagram' },
   { label: 'X / Twitter', href: 'https://x.com/globalnf', icon: 'twitter' },
   { label: 'Facebook', href: 'https://facebook.com/globalnf', icon: 'facebook' },

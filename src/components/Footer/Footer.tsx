@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import { NAV_LINKS, SOCIAL_LINKS } from '../../utils/constants'
+import { useTranslation } from '../../hooks/useTranslation'
 import SocialIcon from '../SocialIcon/SocialIcon'
 import logo from '../../assets/Logo and Name (Horizontal Transparent).png'
 
 export default function Footer() {
+  const { t } = useTranslation()
+
   return (
     <footer className="bg-navy text-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
@@ -16,27 +19,27 @@ export default function Footer() {
               className="h-14 w-auto mb-4 brightness-0 invert"
             />
             <p className="text-white/60 text-sm font-medium mb-2 italic">
-              Empowering nurses, home and abroad.
+              {t('footer.tagline')}
             </p>
             <p className="text-white/50 text-sm leading-relaxed">
-              Global Nursing Foundation empowers internationally educated nurses to obtain U.S. RN licensure and supports nursing education in low-income countries.
+              {t('footer.description')}
             </p>
           </div>
 
           {/* Column 2: Site links */}
           <div>
             <h3 className="font-display font-bold text-sm uppercase tracking-widest text-white/50 mb-4">
-              Navigation
+              {t('footer.navigation')}
             </h3>
-            <nav aria-label="Footer navigation">
+            <nav aria-label={t('footer.navigationAria')}>
               <ul className="space-y-2">
-                {NAV_LINKS.map(({ label, to }) => (
+                {NAV_LINKS.map(({ labelKey, to }) => (
                   <li key={to}>
                     <Link
                       to={to}
                       className="text-white/70 hover:text-brand transition-colors text-sm"
                     >
-                      {label}
+                      {t(labelKey)}
                     </Link>
                   </li>
                 ))}
@@ -47,7 +50,7 @@ export default function Footer() {
           {/* Column 3: Social + contact */}
           <div>
             <h3 className="font-display font-bold text-sm uppercase tracking-widest text-white/50 mb-4">
-              Connect
+              {t('footer.connect')}
             </h3>
             <div className="flex gap-3 mb-6">
               {SOCIAL_LINKS.map(({ label, href, icon }) => (
@@ -73,10 +76,10 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-white/40 text-xs">
-            © 2026 Global Nursing Foundation. All rights reserved.
+            {t('footer.copyright', { year: 2026 })}
           </p>
           <p className="text-white/30 text-xs">
-            501(c)(3) nonprofit organization
+            {t('footer.nonprofit')}
           </p>
         </div>
       </div>
