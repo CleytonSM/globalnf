@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import heroBg from '../assets/hero_background2.mp4'
+import heroBg from '../assets/hero_background2.webm'
 import Button from '../components/Button/Button'
 import AccentCard from '../components/Card/AccentCard'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
@@ -56,14 +56,7 @@ function HeroSection() {
           <span className="text-brand-light">home and abroad.</span>
         </motion.h1>
 
-        <motion.p
-          className="text-white/75 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          The Global Nursing Foundation opens U.S. and Canadian RN licensure pathways for internationally educated nurses — and funds nursing education in low-income countries.
-        </motion.p>
+        
 
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"

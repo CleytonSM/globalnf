@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Handshake, Target, Bot } from 'lucide-react'
-import heroBg from '../assets/hero_background3.mp4'
+import heroBg from '../assets/hero_background3.webm'
 import SocialIcon from '../components/SocialIcon/SocialIcon'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import WaitlistForm from '../features/community/WaitlistForm'

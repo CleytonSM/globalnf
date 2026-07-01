@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Users, Bot, BookOpen } from 'lucide-react'
-import heroBg from '../assets/hero_background.mp4'
+import heroBg from '../assets/hero_background.webm'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import AudienceSelector from '../features/journey/AudienceSelector'
 import JourneyMap from '../features/journey/JourneyMap'
