@@ -6,7 +6,9 @@ import AccentCard from '../components/Card/AccentCard'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import StatsBanner from '../features/stats/StatsBanner'
 import FadeIn from '../components/FadeIn/FadeIn'
-import { MISSION_QUADRANTS } from '../features/programs/programsData'
+import { MISSION_QUADRANTS, PROGRAMS } from '../features/programs/programsData'
+import { Globe2 } from 'lucide-react'
+import { Sprout } from 'lucide-react'
 
 export default function HomePage() {
   return (
@@ -14,6 +16,7 @@ export default function HomePage() {
       <HeroSection />
       <StatsBanner />
       <MissionModelSection />
+      <ProgramsOverviewSection />
       <CtaBannerSection />
     </>
   )
@@ -142,6 +145,66 @@ function CtaBannerSection() {
             Get Started
           </Button>
         </FadeIn>
+      </div>
+    </section>
+  )
+}
+
+
+function ProgramsOverviewSection() {
+  return (
+    <section className="py-20 bg-white m-5 rounded-lg">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <SectionHeader
+          eyebrow="Our Programs"
+          title="Two pillars. One mission."
+         
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {PROGRAMS.map((program) => (
+            <div
+              key={program.id}
+              className="bg-neutral rounded-2xl p-8 flex flex-col"
+            >
+              <div
+                className={`w-10 h-10 rounded-lg mb-5 flex items-center justify-center ${
+                  program.id === 'pathway-abroad' ? 'bg-brand/10' : 'bg-green/10'
+                }`}
+              >
+                {program.id === 'pathway-abroad' ? (
+                  <Globe2 className="w-5 h-5 text-brand" aria-hidden="true" />
+                ) : (
+                  <Sprout className="w-5 h-5 text-green" aria-hidden="true" />
+                )}
+              </div>
+              <h3
+                className={`font-display font-bold text-xl mb-3 ${
+                  program.id === 'pathway-abroad' ? 'text-navy' : 'text-green'
+                }`}
+              >
+                {program.title}
+              </h3>
+              <p className="text-dark/70 leading-relaxed flex-1">{program.description}</p>
+              <div className="mt-6">
+                <Link
+                  to={program.ctaTo}
+                  className="text-sm font-semibold text-brand hover:text-brand-dark inline-flex items-center gap-1 group"
+                >
+                  {program.ctaLabel}
+                  <svg
+                    className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
