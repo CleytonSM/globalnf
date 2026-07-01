@@ -50,12 +50,7 @@ function CommunityHeroSection() {
         >
           You don't have to do this alone
         </motion.h1>
-        <motion.p
-          className="text-white/70 text-xl leading-relaxed"
-          {...stagger(0.5)}
-        >
-          A peer community of 20,000 nurses — walking the validation journey together, supporting each other at every step.
-        </motion.p>
+        
       </div>
     </section>
   )

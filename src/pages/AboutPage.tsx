@@ -65,19 +65,16 @@ function FounderStorySection() {
             </motion.blockquote>
           </div>
 
-          {/* Photo placeholder */}
           <motion.div
             className="flex justify-center"
             {...stagger(0.5)}
           >
-            <div className="w-80 h-96 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center">
-              <div className="text-center text-white/30">
-                <div className="w-24 h-24 rounded-full bg-brand/20 flex items-center justify-center mx-auto mb-4">
-                  <span className="font-display font-bold text-3xl text-white/60">SE</span>
-                </div>
-                <p className="text-sm">Sabrina Elias</p>
-                <p className="text-xs mt-1">Founder & Executive Director</p>
-              </div>
+            <div className="w-80 h-96 rounded-2xl overflow-hidden border border-white/20">
+              <img
+                src={TEAM_MEMBERS.find((m) => m.id === 'sabrina-elias')!.photo}
+                alt="Sabrina Elias, Founder & Executive Director"
+                className="w-full h-full object-cover"
+              />
             </div>
           </motion.div>
         </div>

@@ -155,17 +155,16 @@ function ProgramsOverviewSection() {
   return (
     <section className="py-20 bg-white m-5 rounded-lg">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <SectionHeader
-          eyebrow="Our Programs"
-          title="Two pillars. One mission."
-         
-        />
+        <FadeIn>
+          <SectionHeader
+            eyebrow="Our Programs"
+            title="Two pillars. One mission."
+          />
+        </FadeIn>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {PROGRAMS.map((program) => (
-            <div
-              key={program.id}
-              className="bg-neutral rounded-2xl p-8 flex flex-col"
-            >
+          {PROGRAMS.map((program, i) => (
+            <FadeIn key={program.id} delay={i * 0.1}>
+              <div className="bg-neutral rounded-2xl p-8 flex flex-col">
               <div
                 className={`w-10 h-10 rounded-lg mb-5 flex items-center justify-center ${
                   program.id === 'pathway-abroad' ? 'bg-brand/10' : 'bg-green/10'
@@ -202,7 +201,8 @@ function ProgramsOverviewSection() {
                   </svg>
                 </Link>
               </div>
-            </div>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>
